@@ -1,10 +1,10 @@
-Starting with Kilo release, eventlet is replaced with mod_wsgi in front of Keystone service to avoid close_wait staus in TCP sessions. This page descibes wsgi and Keystone configurations in detail steps. Per Morgan Fainbery, the chief developer of Kerystone. The main reasons are that
+Starting with Kilo release, eventlet is replaced with mod_wsgi in front of Keystone service to avoid close_wait staus in TCP sessions.  Per Morgan Fainbery, the chief developer of Kerystone. The main reasons are that
 
     "Keystone relies on apache/web-server modules to handle federated identity (validation of SAML, etc) and similar SSO type authentication (Kerberos)."
     "Eventlet has proven problematic when it comes to workloads within Keystone, notably that a number of actions cannot yield (either due to lacking in Eventlet, or that the dependent library uses C-bindings that eventlet is not able to work with)."
 
 
-Followings configuration steps are for RedHat/CentOS platform. Please ajust accordingly for debian Linux platforms.
+Followings configuration steps are for RedHat/CentOS platform. Please adjust accordingly for debian or other Linux flavors.
  
 Step 1: Create a /etc/httpd/conf.d/wsgi-keystone.conf
 
