@@ -7,6 +7,24 @@ Followings configuration steps are for RedHat/CentOS platform. Please ajust acco
 
 Step 1: Create a /etc/httpd/conf.d/wsgi-keystone.conf
 
+Cinder.conf
+root@alf05:/etc/cinder# more cinder.conf
+[DEFAULT]
+rootwrap_config = /etc/cinder/rootwrap.conf
+api_paste_confg = /etc/cinder/api-paste.ini
+#iscsi_helper = tgtadm
+#iscsi_helper = ietadm
+volume_name_template = volume-%s
+volume_group = cinder-volumes
+verbose = True
+auth_strategy = keystone
+state_path = /var/lib/cinder
+lock_path = /var/lock/cinder
+volumes_dir = /var/lib/cinder/volumes
+sql_connection = mysql://cinder:password@10.18.16.45/cinder
+#iscsi_ip_address=10.10.10.51
+
+
 Step 2: Modify /etc/keystone/keystone.conf 
 
 Step 3: Update Keystone endpoints
