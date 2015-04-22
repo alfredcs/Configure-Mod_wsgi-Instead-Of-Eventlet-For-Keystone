@@ -54,59 +54,30 @@ Step 2: Modify /etc/keystone/keystone.conf
 
 In this case, port 5000 is mapped to 5001 on one or multiple nodes running keystone-all via haproxy. Same for 35357.
 
-[DEFAULT]
-verbose=True
-debug=True
-log_file = /var/log/keystone/keystone.log
-log_dir = /var/log/keystone
-log_format = %(asctime)s %(levelname)8s [%(name)s] %(message)s
-log_date_format = %Y-%m-%d %H:%M:%S
-default_log_levels = amqp=WARN, amqplib=WARN, boto=WARN, qpid=WARN, sqlalchemy=WARN, suds=INFO, oslo.messaging=INFO, iso8601=WARN, requests.packages.urllib3.connectionpool=WARN, urllib3.connectionpool=INFO, websocket=WARN, keystonemiddleware=INFO, routes.middleware=WARN, stevedore=WARN
-admin_token = <token_string>
-public_port = 5000
-admin_port = 35357
-tcp_keepalive = True
-tcp_keepidle = 10
-public_workers=2
-admin_workers=2
-[database]
-connection = mysql://keystone:fc2ac07240830c19d6f4@10.0.0.241/keystone
-[assignment]
-[cache]
-[catalog]
-[credential]
-[ec2]
-[endpoint_filter]
-[endpoint_policy]
-[federation]
-[identity]
-[identity_mapping]
-[kvs]
-[ldap]
-[matchmaker_redis]
-[matchmaker_ring]
-[memcache]
-servers = 10.0.0.241:11211
-[oauth1]
-[os_inherit]
-[paste_deploy]
-config_file=keystone-paste.ini
-[policy]
-[revoke]
-[saml]
-[signing]
-[eventlet_server_ssl]
-enable = False
-cert_required = False
-[auth]
-methods = external,password,token,oauth1
-password = keystone.auth.plugins.password.Password
-token = keystone.auth.plugins.token.Token
-oauth1 = keystone.auth.plugins.oauth1.OAuth
+# openstack endpoint list
++----------------------------------+-----------+--------------+--------------+
+| ID                               | Region    | Service Name | Service Type |
++----------------------------------+-----------+--------------+--------------+
+| 2b5851e0e39d420480a63626a7cffa82 | regionOne | glance       | image        |
+| 502c322cbb604ecc9929b0ff2e8a58b7 | regionOne | nova         | compute      |
+| d7dbfc2e5d904ca3be8571a5ad59a4d5 | regionOne | neutron      | network      |
+| 594f928ebde24a86b24dd095e64f240d | regionOne | keystone     | identity     |
++----------------------------------+-----------+--------------+--------------+
 
-[token]
-driver = keystone.token.persistence.backends.memcache.Token
-provider = keystone.token.providers.uuid.Provider
+# openstack endpoint show keystone
++--------------+----------------------------------------+
+| Field        | Value                                  |
++--------------+----------------------------------------+
+| adminurl     | http://10.0.0.244:%(admin_port)s/v2.0  |
+| enabled      | True                                   |
+| id           | 594f928ebde24a86b24dd095e64f240d       |
+| internalurl  | http://10.0.0.244:%(public_port)s/v2.0 |
+| publicurl    | http://10.0.0.244:%(public_port)s/v2.0 |
+| region       | regionOne                              |
+| service_id   | 7088b1e64ba94ff180edf35971660f91       |
+| service_name | keystone                               |
+| service_type | identity                               |
++--------------+----------------------------------------+
 
 
 Step 3: Update Keystone endpoints
