@@ -52,7 +52,7 @@ Use port 5001 for public and internal auth port and 35358 for admin auth port.
  
 Step 2: Modify /etc/keystone/keystone.conf
 
-In this case, port 5000 is mapped to 5001 on one or multiple nodes running keystone-all via haproxy. Same for 35357.
+In this case, port 5000 is mapped to 5001 on one or multiple nodes running keystone-all via haproxy. Same for 35357. The conf example uses memcache for token persistance.
 
     [DEFAULT]
     verbose=True
@@ -205,7 +205,7 @@ Step 5: Restart Keystone
 
 Restart httpd will also start keystone-all. No need to start openstack-keystone.service separately.            
    
-#systemctl restart httpd.service
+    #systemctl restart httpd.service
 
 
 
