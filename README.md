@@ -10,45 +10,44 @@ Step 1: Create a /etc/httpd/conf.d/wsgi-keystone.conf
 
 Use port 5001 for public and internal auth port and 35358 for admin auth port.
 
-Listen 5001
-Listen 35358
-<VirtualHost *:5001>
-    DocumentRoot "/var/www/keystone"
-    <Directory "/var/www/keystone">
-        Options Indexes FollowSymLinks MultiViews
-        AllowOverride None
-        Require all granted
-    </Directory>
-    WSGIDaemonProcess keystone-public processes=5 threads=1 user=keystone display-name=%{GROUP}
-    WSGIProcessGroup keystone-public
-    WSGIScriptAlias / /var/www/keystone/main
-    WSGIApplicationGroup %{GLOBAL}
-    WSGIPassAuthorization On
-    <IfVersion >= 2.4>
-      ErrorLogFormat "%{cu}t %M"
-    </IfVersion>
-    ErrorLog /var/log/httpd/keystone.log
-    CustomLog /var/log/httpd/keystone_access.log combined
-</VirtualHost>
-<VirtualHost *:35358>
-    DocumentRoot "/var/www/keystone"
-    <Directory "/var/www/keystone">
-        Options Indexes FollowSymLinks MultiViews
-        AllowOverride None
-        Require all granted
-    </Directory>
-    WSGIDaemonProcess keystone-admin processes=5 threads=1 user=keystone display-name=%{GROUP}
-    WSGIProcessGroup keystone-admin
-    WSGIScriptAlias / /var/www/keystone/admin
-    WSGIApplicationGroup %{GLOBAL}
-    WSGIPassAuthorization On
-    <IfVersion >= 2.4>
-      ErrorLogFormat "%{cu}t %M"
-    </IfVersion>
-    ErrorLog /var/log/httpd/keystone.log
-    CustomLog /var/log/httpd/keystone_access.log combined
-</VirtualHost>
-
+    Listen 5001
+    Listen 35358
+    <VirtualHost *:5001>
+        DocumentRoot "/var/www/keystone"
+        <Directory "/var/www/keystone">
+            Options Indexes FollowSymLinks MultiViews
+            AllowOverride None
+            Require all granted
+        </Directory>
+        WSGIDaemonProcess keystone-public processes=5 threads=1 user=keystone display-name=%{GROUP}
+        WSGIProcessGroup keystone-public
+        WSGIScriptAlias / /var/www/keystone/main
+        WSGIApplicationGroup %{GLOBAL}
+        WSGIPassAuthorization On
+        <IfVersion >= 2.4>
+          ErrorLogFormat "%{cu}t %M"
+        </IfVersion>
+        ErrorLog /var/log/httpd/keystone.log
+        CustomLog /var/log/httpd/keystone_access.log combined
+    </VirtualHost>
+    <VirtualHost *:35358>
+        DocumentRoot "/var/www/keystone"
+        <Directory "/var/www/keystone">
+            Options Indexes FollowSymLinks MultiViews
+            AllowOverride None
+            Require all granted
+        </Directory>
+        WSGIDaemonProcess keystone-admin processes=5 threads=1 user=keystone display-name=%{GROUP}
+        WSGIProcessGroup keystone-admin
+        WSGIScriptAlias / /var/www/keystone/admin
+        WSGIApplicationGroup %{GLOBAL}
+        WSGIPassAuthorization On
+        <IfVersion >= 2.4>
+          ErrorLogFormat "%{cu}t %M"
+        </IfVersion>
+        ErrorLog /var/log/httpd/keystone.log
+        CustomLog /var/log/httpd/keystone_access.log combined
+    </VirtualHost>
 
  
 Step 2: Modify /etc/keystone/keystone.conf
